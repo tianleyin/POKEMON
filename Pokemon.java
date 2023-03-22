@@ -4,7 +4,13 @@ public abstract class Pokemon implements Comparable<Pokemon>{
 	private String nom;
 	private int energia,vida,danybase,defensa,precisio,vidaperm;
 	
-	String[] nom_poke = {"SQUIRTLE", "PSYCUK", "MEOWTH", "JIGGLYPUFF", "PONYTA", "CHARIZARD", "ZAPDOS", "ARTICUNO", "MOLTRES", "MEW", "MEOTWO", "EEVEE", "PIKACHU", "CHARIZARD"};
+	String[] nom_poke = {"SQUIRTLE", "PSYCUK", "MEOWTH", "JIGGLYPUFF", "PONYTA", 
+			"CHARIZARD", "ZAPDOS", "ARTICUNO", "MOLTRES", "MEW", "MEOTWO", "EEVEE", 
+			"PIKACHU", "CHARIZARD", "GENGAR", "ARCANINE", "BULBASUR", "BLAZIKEN", "UMBREON",
+			"LUCARIO", "GARDEVOIR", "DRAGONITE", "ABSOL", "TYPHLOSION", "AMPHAROS", "FLYGON",
+			"NINETALES", "TYRANITAR", "INFERNAPE", "SNORLAX", "TORTERRA", "LUXRAY",
+			"SCIZOR", "MUDKIP", "GARCHOMP", "METAGROSS", "ALAKAZAM", "EMPOLEON", "SCEPTILE",
+			"CUBONE", "RAYQUAZA", "AGGRON", "TOTODILE", "VOLCARONA", "MIMIKYU", "HERACROSS"};	
 	
 	public Pokemon(String tipo,String nombre, int vidaa){
 		if(tipo.equals("aigua")) {
