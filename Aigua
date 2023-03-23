@@ -81,16 +81,3 @@ public class Aigua extends Pokemon implements Atacable, Defensable{
 		return mensaje;
 	}
 }
-		/*@Override
-	public int compareTo(Pokemon p) {
-		int resultado = 0;
-		if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
-		else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
-		else {
-			if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
-			else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
-			else { resultado = 0; }
-		}
-		return resultado;	
-	}*/
-	
