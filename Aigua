@@ -5,8 +5,8 @@ public class Aigua extends Pokemon implements Atacable, Defensable{
 	private String nombre, mensaje;
 	private int vida, ataquee;
 	private ArrayList<String> elec_ataque = new ArrayList<String>() {{ add("PISTOLA_AIGUA"); add("HIDROBOMBA"); add("RAIG_BOMBOLLA");}};
-	public Aigua (String nombre, int vida) {
-		super("aigua",nombre, vida);
+	public Aigua (String nombre) {
+		super("aigua",nombre);
 	}
 
 	@Override
