@@ -2,8 +2,8 @@ package pokemons;
 
 import java.util.ArrayList;
 public class Aigua extends Pokemon implements Atacable, Defensable{
-	private String nombre, mensaje;
-	private int vida, ataquee;
+	private String nombre,mensaje;
+	private int ataquee;
 	private ArrayList<String> elec_ataque = new ArrayList<String>() {{ add("PISTOLA_AIGUA"); add("HIDROBOMBA"); add("RAIG_BOMBOLLA");}};
 	public Aigua (String nombre) {
 		super("aigua",nombre);
@@ -30,54 +30,54 @@ public class Aigua extends Pokemon implements Atacable, Defensable{
 		return 0;
 		}
 		else {
-			return 15 + num_aleatorio + this.ataquee;
+		return 15 + num_aleatorio + this.ataquee;
 		}
 	}
 	@Override
 	public String getDefensa(Pokemon enemic, int atacEnemic) {
 		int probabilidad = (int)(Math.random()*100);
-		if (atacEnemic==0) {this.mensaje = "No s'ha pogut fer l'atac, "+ enemic.getNombre()+" no té energia!!";}
+		if (atacEnemic==0) {this.mensaje= "No s'ha pogut fer l'atac, "+ enemic.getNombre()+" no té energia!!";}
 		else {
-			if (enemic instanceof Foc) {
-				if (probabilidad>72) {
-					this.mensaje =  "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
-				}
-				else {
-					int att= atacEnemic-10*2;
-					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "El atac ha estat poc efectiu!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
-				}
+		if (enemic instanceof Foc) {
+			if (probabilidad>72) {
+				this.mensaje= "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
 			}
-			else if (enemic instanceof Electric) {
-				if (probabilidad>63) {
-					mensaje = "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
-				}
+			else {
+				int att= atacEnemic-10*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); this.mensaje= "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
 				else {
-					int att= 3*atacEnemic-10*2;
-					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "ATAC CRITIC!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
-				}
-			}
-			else if (enemic instanceof Aigua) {
-				if (probabilidad>80) {
-					this.mensaje = "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
-				}
-				else {
-					int att= atacEnemic-10;
-					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
+				this.mensaje= "El atac ha estat poc efectiu!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
 				}
 			}
 		}
-		return mensaje;
+		else if (enemic instanceof Electric) {
+			if (probabilidad>63) {
+				this.mensaje= "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= 3*atacEnemic-10*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				this.mensaje= "ATAC CRITIC!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		else if (enemic instanceof Aigua) {
+			if (probabilidad>80) {
+				this.mensaje= "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= atacEnemic-10;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				this.mensaje= "El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
 	}
+	return this.mensaje;
+}
 }
