@@ -62,7 +62,9 @@ public abstract class Pokemon implements Comparable<Pokemon>{
 	}
 	@Override
 	public String toString() {
-		return(this.nom+" "+this.energia+ " "+ this.vida+ " "+ this.danybase+ " "+ this.defensa+ " "+ this.precisio);
+		return("Nom: " + this.nom+"\n"+ "Energia: " + this.energia + "\n" + 
+			"Vida: " + this.vida+ "\n"+ "Dany: " + this.danybase+ "\n"+ 
+				"Defensa: " + this.defensa+ "\n" + "Precisió: " + this.precisio);
 	}
 	
 	public int CompareTo(Pokemon p) {
