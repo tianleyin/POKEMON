@@ -8,5 +8,13 @@ public class Usuari {
 		this.alias=ali;
 		this.pokemons=pok;
 	}
-	
+
+	@Override
+	public String toString() {
+		String a="**********"+this.alias+"**********\n========POKEMONS========\n\n";
+		for (int i=0;i<this.pokemons.size();i++) {
+			a=a+pokemons.get(i)+"\n\n";
+		}
+		return a;
+	}
 }
