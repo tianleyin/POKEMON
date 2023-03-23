@@ -1,44 +1,38 @@
 package pokemons;
 
-public abstract class Pokemon implements Comparable<Pokemon>{
+import java.util.Comparator;
+
+public abstract class Pokemon implements Comparator<Pokemon> {
 	private String nom;
 	private int energia,vida,danybase,defensa,precisio,vidaperm;
 	
-	String[] nom_poke = {"SQUIRTLE", "PSYCUK", "MEOWTH", "JIGGLYPUFF", "PONYTA", 
-			"CHARIZARD", "ZAPDOS", "ARTICUNO", "MOLTRES", "MEW", "MEOTWO", "EEVEE", 
-			"PIKACHU", "CHARIZARD", "GENGAR", "ARCANINE", "BULBASUR", "BLAZIKEN", "UMBREON",
-			"LUCARIO", "GARDEVOIR", "DRAGONITE", "ABSOL", "TYPHLOSION", "AMPHAROS", "FLYGON",
-			"NINETALES", "TYRANITAR", "INFERNAPE", "SNORLAX", "TORTERRA", "LUXRAY",
-			"SCIZOR", "MUDKIP", "GARCHOMP", "METAGROSS", "ALAKAZAM", "EMPOLEON", "SCEPTILE",
-			"CUBONE", "RAYQUAZA", "AGGRON", "TOTODILE", "VOLCARONA", "MIMIKYU", "HERACROSS"};	
-	
-	public Pokemon(String tipo,String nombre, int vidaa){
+	public Pokemon(String tipo,String nombre){
 		if(tipo.equals("aigua")) {
 			this.nom=nombre;
 			this.energia= 100;
-			this.vida= vidaa;
+			this.vida= (int) (Math.random() * 150 + 250);
 			this.danybase=15;
 			this.defensa=10;
 			this.precisio=80;
-			this.vidaperm=vidaa;
+			this.vidaperm=vida;
 		}
 		else if(tipo.equals("foc")) {
 			this.nom=nombre;
 			this.energia= 100;
-			this.vida= vidaa;
+			this.vida= (int) (Math.random() * 150 + 250);
 			this.danybase=20;
 			this.defensa=15;
 			this.precisio=72;
-			this.vidaperm=vidaa;
+			this.vidaperm=vida;
 		}
 		else if(tipo.equals("electric")) {
 			this.nom=nombre;
 			this.energia= 100;
-			this.vida= vidaa;
+			this.vida= (int) (Math.random() * 150 + 250);
 			this.danybase=25;
 			this.defensa=15;
 			this.precisio=63;
-			this.vidaperm=vidaa;
+			this.vidaperm=vida;
 		}
 	}
 	public void resetStats() {
@@ -67,15 +61,8 @@ public abstract class Pokemon implements Comparable<Pokemon>{
 				"Defensa: " + this.defensa+ "\n" + "Precisió: " + this.precisio);
 	}
 	
-	public int CompareTo(Pokemon p) {
-		int resultado = 0;
-		if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
-		else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
-		else {
-			if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
-			else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
-			else { resultado = 0; }
-		}
-		return resultado;
+	@Override
+	public int compare(Pokemon p1, Pokemon p2) {
+		return p1.getVida() - p2.getVida();
 	}
 }
