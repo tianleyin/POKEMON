@@ -1,0 +1,92 @@
+package pokemons;
+
+import java.util.ArrayList;
+public class Electric extends Pokemon implements Atacable, Defensable{
+	private String nombre;
+	private int vida, ataquee;
+	private ArrayList<String> elec_ataque = new ArrayList<String>() {{ add("BOLA_VOLTIO"); add("XISPA"); }};
+	public Electric (String nombre, int vida) {
+		super("electric",nombre, vida);
+	}
+
+	@Override
+	public int getAtac() {
+		int ataque = (int) (Math.random() * 4);
+		String atac = this.elec_ataque.get(ataque);
+		int num_aleatorio = (int) (Math.random() * 60 + 30) ;
+		if ("BOLA_VOLTIO".equals(atac)) {
+			this.ataquee = 12;
+		}
+		else if ("XISPA".equals(atac)) {
+			this.ataquee = 7;
+		}
+		this.setEnergia(getEnergia() - 20);
+		if (this.getEnergia()<0)
+		{System.out.println("No hi ha energia per fer l'atac!!");
+		this.setEnergia(0);
+		return 0;
+		}
+		else {
+		return 25 + num_aleatorio + this.ataquee;
+		}
+	}
+	@Override
+	public String getDefensa(Pokemon enemic, int atacEnemic) {
+		int probabilidad = (int)(Math.random()*100);
+		if (atacEnemic==0) {return "No s'ha pogut fer l'atac, "+ enemic.getNombre()+" no té energia!!";}
+		else {
+		if (enemic instanceof Aigua) {
+			if (probabilidad>80) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= atacEnemic-15*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "El atac ha estat poc efectiu!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		else if (enemic instanceof Foc) {
+			if (probabilidad>72) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= 3*atacEnemic-15*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "ATAC CRITIC!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		else if (enemic instanceof Electric) {
+			if (probabilidad>63) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= atacEnemic-15;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+	}
+	/*@Override
+	public int compareTo(Pokemon p) {
+		int resultado = 0;
+		if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
+		else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
+		else {
+			if (this.getEnergia()<p.getEnergia()) { resultado = -1; }
+			else if (this.getEnergia()>p.getEnergia()) { resultado = 1; }
+			else { resultado = 0; }
+		}
+		return resultado;
+	}*/
+}
+
+
