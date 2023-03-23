@@ -1,0 +1,12 @@
+package pokemons;
+import java.util.ArrayList;
+public class Usuari {
+	private String alias;
+	private ArrayList<Pokemon> pokemons;
+	
+	public Usuari(String ali, ArrayList<Pokemon> pok) {
+		this.alias=ali;
+		this.pokemons=pok;
+	}
+	
+}
