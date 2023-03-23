@@ -5,8 +5,8 @@ public class Foc extends Pokemon implements Atacable, Defensable{
 	private String nom, mensaje;
 	private int vid, ataquee;
 	private ArrayList<String> ataque = new ArrayList<String>() {{ add("ASQUES"); add("LANZALLAMES");}};
-	public Foc(String nom, int vid){
-		super("foc",nom,vid);
+	public Foc(String nom){
+		super("foc",nom);
 	}
 	@Override
 	public int getAtac() {
