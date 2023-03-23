@@ -1,0 +1,77 @@
+package pokemons;
+
+import java.util.ArrayList;
+public class Foc extends Pokemon implements Atacable, Defensable{
+	private String nom;
+	private int vid, ataquee;
+	private ArrayList<String> ataque = new ArrayList<String>() {{ add("ASQUES"); add("LANZALLAMES");}};
+	public Foc(String nom, int vid){
+		super("foc",nom,vid);
+	}
+	@Override
+	public int getAtac() {
+		String ata = this.ataque.get((int)(Math.random()*2));
+		if (ata.equals("ASQUES")) {
+			this.ataquee=12;
+		}
+		else {
+			this.ataquee=4;
+		}
+		this.setEnergia(getEnergia()-20);
+		if (this.getEnergia()<0)
+		{System.out.println("No hi ha energia per fer l'atac!!");
+		this.setEnergia(0);
+		return 0;
+		}
+		else {
+		return 20 + (int)(Math.random()*60+30) + this.ataquee;
+		}
+	}
+	@Override
+	public String getDefensa(Pokemon enemic, int atacEnemic) {
+		int probabilidad = (int)(Math.random()*100);
+		if (atacEnemic==0) {return "No s'ha pogut fer l'atac, "+ enemic.getNombre()+" no té energia!!";}
+		else {
+		if (enemic instanceof Foc) {
+			if (probabilidad>72) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= atacEnemic-15*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "El atac ha estat poc efectiu!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		else if (enemic instanceof Aigua) {
+			if (probabilidad>80) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= 3*atacEnemic-15*2;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "ATAC CRITIC!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		else if (enemic instanceof Electric) {
+			if (probabilidad>63) {
+				return "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+			}
+			else {
+				int att= atacEnemic-15;
+				this.setVida(this.getVida()-att);
+				if (this.getVida()<=0) {this.setVida(0); return "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
+				else {
+				return "El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
+				}
+			}
+		}
+		}
+	}
+	
+}
