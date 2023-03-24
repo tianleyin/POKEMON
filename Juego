@@ -1,0 +1,200 @@
+package pokemons;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+public class Juego {
+	private Scanner s = new Scanner(System.in);
+	public String nombre1() {
+		System.out.println("Nom de l'usuari:");
+		return s.nextLine();
+		}
+	public ArrayList<Pokemon> arraypokemons(){
+		ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
+		for (int i=0; i<=5; i++) {
+			System.out.println("Nom del Pokemon numero "+(i+1)+" :");
+			String np = s.nextLine();
+			int k ;
+			do {
+				k=1;
+				System.out.println("De quin tipus es:\n-->Electric\n-->Foc\n-->Aigua");
+				String tip = s.nextLine();
+				if (tip.toUpperCase().equals("ELECTRIC")) {
+					k=0;
+					 pokemons.add(new Electric(np));
+				}else if (tip.toUpperCase().equals("FOC")){
+					k=0;
+					 pokemons.add(new Foc(np));
+				}
+				else if (tip.toUpperCase().equals("AIGUA")){
+					k=0;
+					 pokemons.add(new Aigua(np));
+				}else {System.out.println("Tipus invalid!!");}
+			}while (k!=0);
+		} return pokemons;
+	}
+	public ArrayList<Pokemon> seleccionarContrincantes() {
+		String[] nom_poke = {"SQUIRTLE", "PSYCUK", "MEOWTH", "JIGGLYPUFF", "PONYTA",
+				"CHARIZARD", "ZAPDOS", "ARTICUNO", "MOLTRES", "MEW", "MEOTWO", "EEVEE",
+				"PIKACHU", "CHARIZARD", "GENGAR", "ARCANINE", "BULBASUR", "BLAZIKEN", "UMBREON",
+				"LUCARIO", "GARDEVOIR", "DRAGONITE", "ABSOL", "TYPHLOSION", "AMPHAROS", "FLYGON",
+				"NINETALES", "TYRANITAR", "INFERNAPE", "SNORLAX", "TORTERRA", "LUXRAY",
+				"SCIZOR", "MUDKIP", "GARCHOMP", "METAGROSS", "ALAKAZAM", "EMPOLEON", "SCEPTILE",
+				"CUBONE", "RAYQUAZA", "AGGRON", "TOTODILE", "VOLCARONA", "MIMIKYU", "HERACROSS"};
+		
+		ArrayList<Pokemon> equip_contr = new ArrayList<Pokemon>();
+		for ( int i = 0; i <=5; i++ ) {
+			int nom_contr = (int) (Math.random() * nom_poke.length);
+			int tipo_poke = (int) (Math.random() * 3+1);
+			String nombre_contr = nom_poke[nom_contr];
+			// Si toca 1, es un pokemon de tipo agua
+			if (tipo_poke == 1) {
+				equip_contr.add(new Aigua(nombre_contr));
+			}
+			// Si toca 2, pokemon tipo fuego
+			else if (tipo_poke == 2) {
+				equip_contr.add(new Foc(nombre_contr));
+			}
+			// Si toca 3, pokemon tipo electrico
+			else if (tipo_poke == 3) {
+				equip_contr.add(new Electric(nombre_contr));
+			}
+		}
+		return equip_contr;
+	}
+	public void input(String mens) {
+		System.out.println(mens);
+		String input = s.nextLine();
+	}
+	public int menu() {
+		int op=0;
+		do {
+		System.out.println("*******MENU*******\nOpció 1:Lluita\nOpció 2:Lluita amb les vides dels pokemons cambiades\nOpció 3: Sortir.");
+		op= s.nextInt();
+		if (op!=1&&op!=2&&op!=3) {System.out.println("Opció incoreecta!!");}
+		}while(op!=1&&op!=2&&op!=3);
+		return op;
+	}
+	public int comprovarpoke(ArrayList<Pokemon> poke) {
+		int i =0;
+		for(Pokemon pokemon: poke) {
+			if(pokemon.getVida()>0 && pokemon.getEnergia()>0) {
+				i++;
+			}
+		}
+		return i;
+	}
+	public Pokemon sacarpokemonatacante(ArrayList<Pokemon> poke) {
+		Pokemon pokemon = poke.get((int) (Math.random() * 6));
+		while(pokemon.getEnergia()<=0 || pokemon.getVida()<=0) {
+			pokemon = poke.get((int) (Math.random() * 6));
+		}
+		return pokemon;
+	}
+	public Pokemon sacarpokemondefensor(ArrayList<Pokemon> poke) {
+		Pokemon pokemon = poke.get((int) (Math.random() * 6));
+		while(pokemon.getVida()<=0) {
+			pokemon = poke.get((int) (Math.random() * 6));
+		}
+		return pokemon;
+	}
+	public int sumarvida(ArrayList<Pokemon> pokemons) {
+		int i = 0;
+		for(Pokemon pokemon: pokemons) {
+			i=i+pokemon.getVida();
+		}
+		return i;
+	}
+	public String getType(String type) {
+		switch(type) {
+		case "Aigua":
+			return "Aigua";
+		case "Foc":
+			return "Foc";
+		case "Electric":
+			return "Electric";
+		default:
+			return "error";
+		}
+	}
+	public void ataque(Pokemon atacante,Pokemon defensor) {
+		int ataque;
+		switch(atacante.getClass().getSimpleName()) {
+		case "Aigua":
+			ataque =((Aigua)atacante).getAtac();
+			switch(defensor.getClass().getSimpleName()) {
+			case "Aigua":
+				((Aigua)defensor).getDefensa(atacante, ataque);
+			case "Foc":
+				((Foc)defensor).getDefensa(atacante, ataque);
+			case "Electric":
+				((Electric)defensor).getDefensa(atacante, ataque);
+			}
+		case "Foc":
+			ataque=((Foc)atacante).getAtac();
+			switch(defensor.getClass().getSimpleName()) {
+			case "Aigua":
+				((Aigua)defensor).getDefensa(atacante, ataque);
+			case "Foc":
+				((Foc)defensor).getDefensa(atacante, ataque);
+			case "Electric":
+				((Electric)defensor).getDefensa(atacante, ataque);
+			}
+		case "Electric":
+			ataque=((Electric)atacante).getAtac();
+			switch(defensor.getClass().getSimpleName()) {
+			case "Aigua":
+				((Aigua)defensor).getDefensa(atacante, ataque);
+			case "Foc":
+				((Foc)defensor).getDefensa(atacante, ataque);
+			case "Electric":
+				((Electric)defensor).getDefensa(atacante, ataque);
+			}
+		}
+	}
+	public void lluitar(Usuari pers, Usuari bot) {
+		ArrayList<Pokemon> pokemons_normal = pers.getPokemons();
+		ArrayList<Pokemon> pokemons_bot = bot.getPokemons();
+		while(comprovarpoke(pokemons_normal)>0 && comprovarpoke(pokemons_bot)>0) {
+		if(sumarvida(pokemons_normal)>sumarvida(pokemons_bot)) {
+			Pokemon atacante = sacarpokemonatacante(pokemons_bot);
+			Pokemon defensor = sacarpokemondefensor(pokemons_normal);
+			while(atacante.getVida()>0 && defensor.getVida()>0) {
+			ataque(atacante,defensor);
+			ataque(defensor,atacante);
+			}
+			
+		}else {
+			Pokemon atacante = sacarpokemonatacante(pokemons_normal);
+			Pokemon defensor = sacarpokemondefensor(pokemons_bot);
+			while(atacante.getVida()>0 && defensor.getVida()>0) {
+			ataque(atacante,defensor);
+			ataque(defensor,atacante);
+			}
+		}
+			//implementar final partida
+		}
+	}
+
+	public static void main(String[] args) {
+		Juego j = new Juego();
+		Usuari persona = new Usuari(j.nombre1(),j.arraypokemons());
+		Usuari maquina = new Usuari("Maquina",j.seleccionarContrincantes());
+		System.out.println(persona);
+		j.input("Presiona ENTER per coneixer els teus contrincants!!");
+		System.out.println(maquina);
+		j.input("Pressiona ENTER pero continuar");
+		int opcion= j.menu();
+		if(opcion==1) {
+			j.lluitar(persona,maquina);
+		}
+		//else if(opcion==2) {
+			//j.cambiarvida();
+		//	j.lluitar(persona,maquina);
+		//}
+		//else if(opcion==3) {
+			//System.exit(0);
+
+		}
+	}
+
+
