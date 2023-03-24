@@ -1,5 +1,6 @@
 package pokemons;
 import java.util.ArrayList;
+import java.util.Collections;
 public class Usuari {
 	private String alias;
 	private ArrayList<Pokemon> pokemons;
@@ -8,10 +9,13 @@ public class Usuari {
 		this.alias=ali;
 		this.pokemons=pok;
 	}
-
+	public ArrayList<Pokemon> getPokemons(){
+		return this.pokemons;
+	}
 	@Override
 	public String toString() {
-		String a="**********"+this.alias+"**********\n========POKEMONS========\n\n";
+		Collections.sort(pokemons);
+		String a="*".repeat(35)+this.alias+"*".repeat(35)+"\n"+"=".repeat(35)+"POKEMONS"+"=".repeat(35)+"\n";
 		for (int i=0;i<this.pokemons.size();i++) {
 			a=a+pokemons.get(i)+"\n\n";
 		}
