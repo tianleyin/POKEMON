@@ -1,5 +1,6 @@
 package pokemons;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 public class Juego {
@@ -68,7 +69,7 @@ public class Juego {
 	public int menu() {
 		int op=0;
 		do {
-		System.out.println("*******MENU*******\nOpció 1:Lluita\nOpció 2:Lluita amb les vides dels pokemons cambiades\nOpció 3: Sortir.");
+		System.out.println("\n\n"+"*".repeat(20)+"MENU"+"*".repeat(20)+"\nOpció 1: Lluita\nOpció 2: Lluita amb les vides dels pokemons cambiades\nOpció 3: Sortir.");
 		op= s.nextInt();
 		if (op!=1&&op!=2&&op!=3) {System.out.println("Opció incoreecta!!");}
 		}while(op!=1&&op!=2&&op!=3);
@@ -83,20 +84,14 @@ public class Juego {
 		}
 		return i;
 	}
-	public Pokemon sacarpokemonatacante(ArrayList<Pokemon> poke) {
+	public Pokemon sacarpokemon(ArrayList<Pokemon> poke) {
 		Pokemon pokemon = poke.get((int) (Math.random() * 6));
 		while(pokemon.getEnergia()<=0 || pokemon.getVida()<=0) {
 			pokemon = poke.get((int) (Math.random() * 6));
 		}
 		return pokemon;
 	}
-	public Pokemon sacarpokemondefensor(ArrayList<Pokemon> poke) {
-		Pokemon pokemon = poke.get((int) (Math.random() * 6));
-		while(pokemon.getVida()<=0) {
-			pokemon = poke.get((int) (Math.random() * 6));
-		}
-		return pokemon;
-	}
+
 	public int sumarvida(ArrayList<Pokemon> pokemons) {
 		int i = 0;
 		for(Pokemon pokemon: pokemons) {
@@ -116,6 +111,50 @@ public class Juego {
 			return "error";
 		}
 	}
+	public void ataque2(Pokemon atacante,Pokemon defensor) {
+		int ataque;
+		String tipatacante =atacante.getClass().getSimpleName();
+		String tipdefensor = defensor.getClass().getSimpleName();
+		if(tipatacante.equals("Aigua") && tipdefensor.equals("Aigua")) {
+			ataque =((Aigua)atacante).getAtac();
+			System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Aigua") && tipdefensor.equals("Foc")) {
+			ataque =((Aigua)atacante).getAtac();
+			System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Aigua") && tipdefensor.equals("Electric")) {
+			ataque =((Aigua)atacante).getAtac();
+			System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Foc") && tipdefensor.equals("Aigua")) {
+			ataque =((Foc)atacante).getAtac();
+			System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Foc") && tipdefensor.equals("Foc")) {
+			ataque =((Foc)atacante).getAtac();
+			System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Foc") && tipdefensor.equals("Electric")) {
+			ataque =((Foc)atacante).getAtac();
+			System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Electric") && tipdefensor.equals("Aigua")) {
+			ataque =((Electric)atacante).getAtac();
+			System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Electric") && tipdefensor.equals("Foc")) {
+			ataque =((Electric)atacante).getAtac();
+			System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
+		}
+		else if(tipatacante.equals("Electric") && tipdefensor.equals("Electric")) {
+			ataque =((Electric)atacante).getAtac();
+			System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
+		}
+		else {System.out.println("NO ENCONTRADO");}
+		
+	}
+
 	public void ataque(Pokemon atacante,Pokemon defensor) {
 		int ataque;
 		switch(atacante.getClass().getSimpleName()) {
@@ -123,78 +162,136 @@ public class Juego {
 			ataque =((Aigua)atacante).getAtac();
 			switch(defensor.getClass().getSimpleName()) {
 			case "Aigua":
-				((Aigua)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
 			case "Foc":
-				((Foc)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
 			case "Electric":
-				((Electric)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
 			}
 		case "Foc":
 			ataque=((Foc)atacante).getAtac();
 			switch(defensor.getClass().getSimpleName()) {
 			case "Aigua":
-				((Aigua)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
 			case "Foc":
-				((Foc)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
 			case "Electric":
-				((Electric)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
 			}
 		case "Electric":
 			ataque=((Electric)atacante).getAtac();
 			switch(defensor.getClass().getSimpleName()) {
 			case "Aigua":
-				((Aigua)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Aigua)defensor).getDefensa(atacante, ataque));
 			case "Foc":
-				((Foc)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Foc)defensor).getDefensa(atacante, ataque));
 			case "Electric":
-				((Electric)defensor).getDefensa(atacante, ataque);
+				System.out.println(((Electric)defensor).getDefensa(atacante, ataque));
 			}
 		}
+	}
+	public int sumarenergia(ArrayList<Pokemon> pokemons) {
+		int i = 0;
+		for(Pokemon pokemon: pokemons) {
+			i=i+pokemon.getEnergia();
+		}
+		return i;
 	}
 	public void lluitar(Usuari pers, Usuari bot) {
 		ArrayList<Pokemon> pokemons_normal = pers.getPokemons();
 		ArrayList<Pokemon> pokemons_bot = bot.getPokemons();
+		int i =0;
+		System.out.println("-".repeat(20)+"COMENÇA LA LLUITA!!"+"-".repeat(20));
 		while(comprovarpoke(pokemons_normal)>0 && comprovarpoke(pokemons_bot)>0) {
+			Pokemon pbot = sacarpokemon(pokemons_bot);
+			Pokemon pnorm = sacarpokemon(pokemons_normal);
+			Pokemon[] luchadores = new Pokemon[2];
+	        luchadores[0] = pbot;
+	        luchadores[1]=pnorm;
+	        input("\nPresiona ENTER per iniciar un combat!!");
+			System.out.println("\n"+"*".repeat(20)+"RONDA "+(i+1)+"*".repeat(20));
+			i=i+1;
+			System.out.println("L'entrenador "+bot.getNom()+" treu a "+ pbot.getNombre());
+			System.out.println("Has tret a "+pnorm.getNombre());
 		if(sumarvida(pokemons_normal)>sumarvida(pokemons_bot)) {
-			Pokemon atacante = sacarpokemonatacante(pokemons_bot);
-			Pokemon defensor = sacarpokemondefensor(pokemons_normal);
-			while(atacante.getVida()>0 && defensor.getVida()>0) {
-			ataque(atacante,defensor);
-			ataque(defensor,atacante);
+			while(luchadores[0].getVida()>0 && luchadores[1].getVida()>0 && luchadores[0].getEnergia()>0) {
+			ataque2(luchadores[0],luchadores[1]);
+			Collections.swap(Arrays.asList(luchadores),0,1);
+			if(luchadores[0].getEnergia()<=0) {System.out.println(luchadores[0].getNombre()+" s'ha quedat sense energia!!");}
 			}
 			
 		}else {
-			Pokemon atacante = sacarpokemonatacante(pokemons_normal);
-			Pokemon defensor = sacarpokemondefensor(pokemons_bot);
-			while(atacante.getVida()>0 && defensor.getVida()>0) {
-			ataque(atacante,defensor);
-			ataque(defensor,atacante);
+			Collections.swap(Arrays.asList(luchadores),0,1);
+			while(luchadores[0].getVida()>0 && luchadores[1].getVida()>0 && luchadores[0].getEnergia()>0) {
+			ataque2(luchadores[0],luchadores[1]);
+			Collections.swap(Arrays.asList(luchadores),0,1);
+			if(luchadores[0].getEnergia()<=0) {System.out.println(luchadores[0].getNombre()+" s'ha quedat sense energia!!");}
 			}
+
 		}
 			//implementar final partida
 		}
+		System.out.println("\n\n"+"=".repeat(20)+"GAME OVER"+"=".repeat(20)+"\n");
+		if(sumarvida(pokemons_normal)>sumarvida(pokemons_bot)) {
+			System.out.println("Felcicitats "+pers.getNom()+" has guanyat la lluita!!");
+		}
+		else if(sumarvida(pokemons_normal)<sumarvida(pokemons_bot)) {
+			System.out.println("Felicitats "+bot.getNom()+" has guanyat la lluita!!");
+		}
+		else {
+			if(sumarenergia(pokemons_normal)>sumarenergia(pokemons_bot)) {
+				System.out.println("Felicitats "+pers.getNom()+" has guanyat la lluita!!");
+			}
+			else if(sumarenergia(pokemons_normal)<sumarenergia(pokemons_bot)) {
+				System.out.println("Felcicitats "+bot.getNom()+" has guanyat la lluita!!");
+			} else {System.out.println("Hi ha hagut un empat!!");}
+		}
+		restart(pokemons_normal);
+		restart(pokemons_bot);
+		
+		
+		
 	}
-
+	public void restart(ArrayList<Pokemon> pokemons) {
+		for(Pokemon pokemon: pokemons) {
+			pokemon.resetStats();
+		}
+	}
+	public void cambiarvida(ArrayList<Pokemon> pokemons) {
+		for(Pokemon pokemon: pokemons) {
+			int vida = (int) (Math.random() * 150 + 250);
+			pokemon.setVida(vida);
+			pokemon.setVidaPerm(vida);
+		}
+	}
 	public static void main(String[] args) {
 		Juego j = new Juego();
 		Usuari persona = new Usuari(j.nombre1(),j.arraypokemons());
 		Usuari maquina = new Usuari("Maquina",j.seleccionarContrincantes());
-		System.out.println(persona);
-		j.input("Presiona ENTER per coneixer els teus contrincants!!");
-		System.out.println(maquina);
-		j.input("Pressiona ENTER pero continuar");
-		int opcion= j.menu();
+		int opcion= 0;
+		while(opcion!=3) {
+		opcion=j.menu();
 		if(opcion==1) {
+			System.out.println(persona);
+			j.input("");
+			j.input("Presiona ENTER per coneixer els teus contrincants!!");
+			System.out.println(maquina);
+			j.input("Pressiona ENTER per continuar");
+			j.lluitar(persona,maquina);
+
+		}
+		else if(opcion==2) {
+			j.cambiarvida(persona.getPokemons());
+			j.cambiarvida(maquina.getPokemons());
+			System.out.println(persona);
+			j.input("");
+			j.input("Presiona ENTER per coneixer els teus contrincants!!");
+			System.out.println(maquina);
+			j.input("Pressiona ENTER per continuar");
 			j.lluitar(persona,maquina);
 		}
-		//else if(opcion==2) {
-			//j.cambiarvida();
-		//	j.lluitar(persona,maquina);
-		//}
-		//else if(opcion==3) {
-			//System.exit(0);
+
+		}
 
 		}
 	}
-
-
