@@ -12,6 +12,9 @@ public class Usuari {
 	public ArrayList<Pokemon> getPokemons(){
 		return this.pokemons;
 	}
+	public String getNom() {
+		return this.alias;
+	}
 	@Override
 	public String toString() {
 		Collections.sort(pokemons);
