@@ -2,8 +2,8 @@ package pokemons;
 
 import java.util.ArrayList;
 public class Electric extends Pokemon implements Atacable, Defensable{
-	private String nombre, mensaje;
-	private int vida, ataquee;
+	private String nombre, mensaje,tipo_ataque;
+	private int ataquee;
 	private ArrayList<String> elec_ataque = new ArrayList<String>() {{ add("BOLA_VOLTIO"); add("XISPA"); }};
 	public Electric (String nombre) {
 		super("electric",nombre);
@@ -11,18 +11,20 @@ public class Electric extends Pokemon implements Atacable, Defensable{
 
 	@Override
 	public int getAtac() {
-		int ataque = (int) (Math.random() * 4);
+		int ataque = (int) (Math.random() * 2);
 		String atac = this.elec_ataque.get(ataque);
 		int num_aleatorio = (int) (Math.random() * 60 + 30) ;
 		if ("BOLA_VOLTIO".equals(atac)) {
 			this.ataquee = 12;
+			this.tipo_ataque="BOLA VOLTIO";
 		}
 		else if ("XISPA".equals(atac)) {
 			this.ataquee = 7;
+			this.tipo_ataque = "XISPA";
 		}
 		this.setEnergia(getEnergia() - 20);
 		if (this.getEnergia()<0)
-		{System.out.println("No hi ha energia per fer l'atac!!");
+		{
 		this.setEnergia(0);
 		return 0;
 		}
@@ -30,48 +32,51 @@ public class Electric extends Pokemon implements Atacable, Defensable{
 			return 25 + num_aleatorio + this.ataquee;
 		}
 	}
+	public String getTipoAtaque() {
+		return this.tipo_ataque;
+	}
 	@Override
 	public String getDefensa(Pokemon enemic, int atacEnemic) {
 		int probabilidad = (int)(Math.random()*100);
 		if (atacEnemic==0) {this.mensaje = "No s'ha pogut fer l'atac, "+ enemic.getNombre()+" no té energia!!";}
 		else {
 			if (enemic instanceof Aigua) {
+				this.mensaje = enemic.getNombre()+" ataca amb "+((Aigua)enemic).getTipoAtaque()+"!!\n";
 				if (probabilidad>80) {
-					this.mensaje = "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+					this.mensaje = this.mensaje+"Ooohhh!! El Pokemon "+enemic.getNombre()+" ha fallat l'atac ";
 				}
 				else {
 					int att= atacEnemic-15*2;
 					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "El atac ha estat poc efectiu!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
+					this.mensaje = this.mensaje+"El atac ha estat poc efectiu!! El pokemon "+ enemic.getNombre()+ " ha reduït la vida de "+ this.getNombre()+" "+ att+ " punts!!";
+					if (this.getVida()<=0) {this.mensaje= this.mensaje + "\nEl pokemon "+ this.getNombre()+" s'ha debilitat!!"; this.setVida(0);}
+
 				}
 			}
 			else if (enemic instanceof Foc) {
+				this.mensaje = enemic.getNombre()+" ataca amb "+((Foc)enemic).getTipoAtaque()+"!!\n";
 				if (probabilidad>72) {
-					this.mensaje = "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+					this.mensaje = this.mensaje+"Ooohhh!! El Pokemon "+enemic.getNombre()+" ha fallat l'atac ";
 				}
 				else {
 					int att= 3*atacEnemic-15*2;
 					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "ATAC CRITIC!! El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
+					this.mensaje = this.mensaje+"ATAC CRITIC!! El pokemon "+ enemic.getNombre()+ " ha reduït la vida de "+ this.getNombre()+" "+ att+ " punts!!";
+					if (this.getVida()<=0) {this.mensaje= this.mensaje + "\nEl pokemon "+ this.getNombre()+" s'ha debilitat!!"; this.setVida(0);}
+
 				}
 			}
 			else if (enemic instanceof Electric) {
+				this.mensaje = enemic.getNombre()+" ataca amb "+((Electric)enemic).getTipoAtaque()+"!!\n";
 				if (probabilidad>63) {
-					this.mensaje = "Ooohhh!! El Pokemon "+this.getNombre()+" ha fallat l'atac ";
+					this.mensaje = this.mensaje+"Ooohhh!! El Pokemon "+enemic.getNombre()+" ha fallat l'atac ";
 				}
 				else {
 					int att= atacEnemic-15;
 					this.setVida(this.getVida()-att);
-					if (this.getVida()<=0) {this.setVida(0); this.mensaje = "El pokemon "+ this.getNombre()+" s'ha debilitat!!";}
-					else {
-						this.mensaje = "El pokemon "+ this.getNombre()+ " ha reduït la vida de "+ enemic.getNombre()+ att+ " punts!!";
-					}
+					this.mensaje = this.mensaje+"El pokemon "+ enemic.getNombre()+ " ha reduït la vida de "+ this.getNombre()+" "+ att+ " punts!!";
+					if (this.getVida()<=0) {this.mensaje= this.mensaje + "\nEl pokemon "+ this.getNombre()+" s'ha debilitat!!"; this.setVida(0);}
+
 				}
 			}
 		}
