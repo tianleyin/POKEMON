@@ -49,6 +49,9 @@ public abstract class Pokemon implements Comparable<Pokemon> {
 	public int getVida() {
 		return this.vida;
 	}
+	public int getVidaPerm() {
+		return this.vidaperm;
+	}
 	public int getEnergia() {
 		return this.energia;
 	}
@@ -57,6 +60,9 @@ public abstract class Pokemon implements Comparable<Pokemon> {
 	}
 	public void setVida(int a) {
 		this.vida=a;
+	}
+	public void setVidaPerm(int a) {
+		this.vidaperm=a;
 	}
 	@Override
 	public String toString() {
